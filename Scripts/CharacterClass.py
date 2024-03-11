@@ -11,6 +11,9 @@ class Character:
         self.gamemanager = gamemanager
 
     def advance(self, n):
+        """prend en argument un int qui représente le nombre de cases dont le perso avancera
+        (advance = avancer, si on rencontre un ennemi,
+        on lui passe derriére mais cela ne compte pas pour un mouvement)"""
         if n < 0:
             raise ValueError("tried to advance for a negative amount")
         direction = self.gamemanager.getdirection(self)
@@ -35,6 +38,7 @@ class Character:
         return True
 
     def close(self, n):
+        """La meme fonction que advance mais le perso ne peut traverser d'autres persos"""
         if n < 0:
             raise ValueError("tried to close for a negative amount")
         direction = self.gamemanager.getdirection(self)
@@ -56,6 +60,7 @@ class Character:
         return True
 
     def retreat(self, n):
+        """fait reculer le personnage de n cases"""
         if n < 0:
             raise ValueError("tried to retreat for a negative amount")
         direction = self.gamemanager.getdirection(self)
@@ -70,10 +75,12 @@ class Character:
         return True
 
     def pull(self, target, n):
+        """fait avancer l'ennemi vers vous"""
         target.close(n)
         return True
 
     def push(self, target, n):
+        """fait reculer l'ennemi"""
         target.retreat(n)
         return True
 
